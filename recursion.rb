@@ -46,6 +46,15 @@ def bsearch(nums, target)
   end
 end
 
+# recursive binary search (boolean edition)
+def bsearch(arr, item)
+  middle = arr.count / 2
+  return true if arr[middle] == item
+  return false if arr.count < 2
+
+  (item < arr[middle]) ? bsearch(arr[0...middle], item) : bsearch(arr[middle..-1], item)
+end
+
 # recursive merge sort
 def merge_sort(array)
   return array if array.count < 2
