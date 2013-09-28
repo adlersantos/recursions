@@ -89,3 +89,20 @@ def make_change(amount, coins = [25, 10 ,5, 1])
     [biggest_fit_coin] + make_change(amount - biggest_fit_coin)
   end
 end
+
+# Suppose a hash represents a directory with subdirectories and so on.
+# If a key is a directory, it points to a subhash. If a key is a file, it points to true.
+# The function below returns an array of strings representing the file paths to each file
+# in the hash.
+def file_paths(file_tree, paths_so_far = "")
+  paths = []
+  file_tree.keys.each do |key|
+    if file_tree[key] == true
+      paths << paths_so_far += "/#{key}"
+    else
+      paths_so_far += "/#{key}"
+      paths += paths(file_tree[key], paths_so_far)
+    end
+  end
+  paths
+end
