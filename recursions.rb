@@ -94,14 +94,15 @@ end
 # If a key is a directory, it points to a subhash. If a key is a file, it points to true.
 # The function below returns an array of strings representing the file paths to each file
 # in the hash.
-def file_paths(file_tree, paths_so_far = "")
+def file_paths(file_tree, path_so_far = "")
   paths = []
   file_tree.keys.each do |key|
     if file_tree[key] == true
-      paths << paths_so_far += "/#{key}"
+      extended_path = path_so_far + "#{key}"
+      paths << extended_path
     else
-      paths_so_far += "/#{key}"
-      paths += paths(file_tree[key], paths_so_far)
+      extended_path = path_so_far + "#{key}/"
+      paths += file_paths(file_tree[key], extended_path)
     end
   end
   paths
